@@ -11,6 +11,9 @@ const User = require('./models/User');
 const Pet = require('./models/Pet');
 const Adoption = require('./models/Adoption');
 
+// NUEVO: Para proxy a Flask ML (agregado sin modificar lo original)
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'secreto123';
@@ -64,6 +67,59 @@ const isAdmin = (req, res, next) => {
     .catch(err => res.status(500).json({ error: 'Error verificando admin' }));
 };
 
+// NUEVO: Proxy directo a Flask ML para análisis de imágenes (agregado sin modificar lo original - maneja /api/analyze-image antes de analyzeRoutes)
+app.post('/api/analyze-image', (req, res) => {
+  console.log('Ruta /api/analyze-image recibida directamente en server.js...');
+
+  // Verifica que Flask esté disponible
+  const flaskUrl = 'http://127.0.0.1:5001';
+
+  const proxy = createProxyMiddleware({
+    target: flaskUrl,
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/analyze-image': '/analyze'  // Reescribe a /analyze en Flask
+    },
+    onProxyReq: (proxyReq, req, res) => {
+      console.log('Proxy: Enviando imagen a Flask ML...');
+      // Log de imagen si llega como FormData (opcional)
+      if (req.files && req.files.image) {
+        console.log(`Imagen: ${req.files.image.name}, tamaño: ${req.files.image.size} bytes`);
+      }
+    },
+    onProxyRes: (proxyRes, req, res) => {
+      console.log(`Proxy: Respuesta de Flask - Status: ${proxyRes.statusCode}`);
+      if (proxyRes.statusCode === 200) {
+        // Log de éxito (opcional: parsea JSON)
+        let body = [];
+        proxyRes.on('data', chunk => body.push(chunk));
+        proxyRes.on('end', () => {
+          try {
+            const result = JSON.parse(body.toString());
+            console.log('Análisis ML exitoso:', result.detectedSpecies || 'unknown');
+          } catch (e) {
+            console.error('Error parseando respuesta de Flask:', e);
+          }
+        });
+      } else if (proxyRes.statusCode >= 400) {
+        console.error(`Error de Flask: ${proxyRes.statusCode}`);
+      }
+    },
+    onError: (err, req, res) => {
+      console.error('Error en proxy a Flask:', err.message);
+      if (err.code === 'ECONNREFUSED') {
+        return res.status(503).json({
+          error: 'Servicio ML no disponible. Verifica que Flask esté corriendo en puerto 5001.'
+        });
+      }
+      res.status(500).json({ error: 'Error conectando con servicio IA: ' + err.message });
+    }
+  });
+
+  // Aplica el proxy al request
+  return proxy(req, res);
+});
+
 // -------------------- RUTAS --------------------
 
 // Registro de usuario
@@ -76,8 +132,8 @@ app.post('/register', [
 
   try {
     const { email, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ error: 'Usuario ya existe' });
+    const existingUser   = await User.findOne({ email });
+    if (existingUser  ) return res.status(400).json({ error: 'Usuario ya existe' });
 
     const hashed = await bcrypt.hash(password, 10);
     const user = new User({ email, password: hashed, points: 0, achievements: [], isAdmin: false });
@@ -258,7 +314,7 @@ app.put('/users/points', authenticateToken, async (req, res) => {
   }
 });
 
-  // Nueva: Importa y usa las rutas de análisis
+// Nueva: Importa y usa las rutas de análisis
 const analyzeRoutes = require('./routes/analyze');
 app.use('/api', analyzeRoutes);  // Todas las rutas de analyze.js tendrán prefijo /api
 

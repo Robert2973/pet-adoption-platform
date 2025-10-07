@@ -1,0 +1,39 @@
+{
+"species": {
+"dog": {
+"breeds": [
+"golden retriever", "labrador retriever", "german shepherd", "poodle", "chihuahua",
+"beagle", "pug", "collie", "siberian husky", "dachshund", "great dane", "boxer",
+"bulldog", "mixed breed", "labrador", "shepherd", "retriever", "hound", "terrier",
+"spaniel", "mastiff", "dalmatian", "rottweiler", "doberman", "bernese mountain dog"
+],
+"tags": ["loyal", "energetic", "friendly", "protective", "playful", "intelligent"],
+"ages": ["puppy", "young", "adult", "senior"]
+},
+"cat": {
+"breeds": [
+"siamese cat", "persian cat", "maine coon", "tabby cat", "british shorthair",
+"bengal cat", "russian blue", "abyssinian", "scottish fold", "domestic shorthair",
+"sphynx", "ragdoll", "burmese", "siamese", "manx", "mixed breed cat"
+],
+"tags": ["playful", "curious", "independent", "affectionate", "agile", "vocal"],
+"ages": ["kitten", "young", "adult", "senior"]
+},
+"bird": {
+"breeds": [
+"parrot", "cockatiel", "budgerigar", "canary", "lovebird", "finch", "cockatoo",
+"macaw", "conure", "mixed bird"
+],
+"tags": ["colorful", "talkative", "social", "intelligent", "active"],
+"ages": ["juvenile", "young", "adult", "senior"]
+},
+"rabbit": {
+"breeds": [
+"dutch rabbit", "holland lop", "mini rex", "netherland dwarf", "flemish giant",
+"lionhead", "mixed rabbit"
+],
+"tags": ["gentle", "curious", "playful", "timid", "affectionate"],
+"ages": ["kit", "young", "adult", "senior"]
+}
+}
+}
