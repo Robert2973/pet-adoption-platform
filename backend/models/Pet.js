@@ -5,8 +5,7 @@
        age: { type: String, required: true },      // ej: 'young', 'adult'
        location: { type: String, required: true },
        photo: { type: String },                   // URL de la foto
-       tags: [String]                             // De análisis: ['Golden Retriever', 'Adult']
+       tags: [String] ,                            // De análisis: ['Golden Retriever', 'Adult']
+       description: { type: String }
      });
      module.exports = mongoose.model('Pet', petSchema);
-
-

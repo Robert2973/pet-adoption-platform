@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-6"style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100); min-height: 100vh;">
+  <v-container fluid class="pa-6" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100); min-height: 100vh;">
     <v-row justify="center">
       <v-col cols="12" md="10" lg="8">
         <v-card class="pa-4 custom-card elevation-8">
@@ -49,12 +49,12 @@
                       <div class="d-flex align-center mb-2">
                         <v-icon small class="mr-2">mdi-account</v-icon>
                         <span class="font-weight-bold">Usuario:</span>
-                        {{ adopt.userId.email }}
+                        {{ adopt.userId?.email || 'Desconocido' }}
                       </div>
                       <div class="d-flex align-center mb-2">
                         <v-icon small class="mr-2">mdi-dog</v-icon>
                         <span class="font-weight-bold">Mascota:</span>
-                        {{ adopt.petId.name }} ({{ adopt.petId.species }})
+                        {{ adopt.petId?.name || 'Desconocida' }} ({{ adopt.petId?.species || 'N/A' }})
                       </div>
                       <div class="d-flex align-center mb-2">
                         <v-icon small class="mr-2">mdi-message-text</v-icon>
@@ -93,7 +93,7 @@
                     <!-- Acciones -->
                     <v-col cols="12" md="4" class="d-flex flex-column align-center justify-center">
                       <v-chip :color="getStatusColor(adopt.status)" class="mb-3" dark>
-                        {{ adopt.status | capitalize }}
+                        {{ adopt.status?.charAt(0).toUpperCase() + adopt.status?.slice(1) || 'N/A' }}
                       </v-chip>
                       <div v-if="adopt.status === 'pending'">
                         <v-btn large block color="green darken-2" class="mb-2" @click="approveAdoption(adopt._id)">
@@ -112,9 +112,6 @@
         </v-card>
       </v-col>
     </v-row>
-
-
-
 
     <!-- Snackbar para notificaciones -->
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" top right timeout="3000" multi-line>
@@ -135,26 +132,21 @@ const loading = ref(false)
 const error = ref('')
 const snackbar = ref({ show: false, message: '', color: '' })
 
-// Encabezados de la tabla (aunque en este diseño personalizado no los usaremos en la vista)
-const headers = [
-  { text: 'Usuario', value: 'user' },
-  { text: 'Mascota', value: 'pet' },
-  { text: 'Mensaje', value: 'message' },
-  { text: 'Fecha', value: 'createdAt' },
-  { text: 'Acciones', value: 'actions', sortable: false }
-]
-
-
-
 // Función para traer las solicitudes
 const fetchAdoptions = async () => {
   try {
     loading.value = true
     error.value = ''
-    const res = await axios.get('/admin/adoptions')
+    const token = localStorage.getItem('token')
+    if (!token) throw new Error('Token no encontrado')
+
+    const res = await axios.get('http://localhost:5000/admin/adoptions', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
     adoptions.value = res.data
   } catch (err) {
-    error.value = err.response?.data?.error || 'Error cargando solicitudes. ¿Eres admin?'
+    console.error(err)
+    error.value = err.response?.data?.error || err.message || 'Error cargando solicitudes.'
   } finally {
     loading.value = false
   }
@@ -163,20 +155,28 @@ const fetchAdoptions = async () => {
 // Funciones para aprobar y rechazar
 const approveAdoption = async (id) => {
   try {
-    await axios.put(`/adoptions/${id}`, { status: 'approved' })
+    const token = localStorage.getItem('token')
+    await axios.put(`http://localhost:5000/adoptions/${id}`, { status: 'approved' }, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
     showSnackbar('¡Adopción aprobada!', 'success')
     fetchAdoptions()
-  } catch {
+  } catch (err) {
+    console.error(err)
     showSnackbar('Error al aprobar', 'error')
   }
 }
 
 const rejectAdoption = async (id) => {
   try {
-    await axios.put(`/adoptions/${id}`, { status: 'rejected' })
+    const token = localStorage.getItem('token')
+    await axios.put(`http://localhost:5000/adoptions/${id}`, { status: 'rejected' }, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
     showSnackbar('¡Adopción rechazada!', 'warning')
     fetchAdoptions()
-  } catch {
+  } catch (err) {
+    console.error(err)
     showSnackbar('Error al rechazar', 'error')
   }
 }
@@ -209,7 +209,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Fondo de la página con gradiente vibrante y fondo oscuro en la tarjeta */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

@@ -1,0 +1,7 @@
+flask==2.3.3
+flask-cors==4.0.0
+tensorflow==2.17.0  # Actualizado: Última estable, compatible con Python 3.9-3.12
+pillow==10.1.0  # Pequeña actualización para compatibilidad
+numpy==1.26.4  # Actualizado para TF 2.17
+typing-extensions==4.12.2  # Versión reciente para evitar conflictos
+tensorflow-hub==0.16.1

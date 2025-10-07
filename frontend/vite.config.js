@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), // 👈 alias para src
+      '@': path.resolve(__dirname, './src'),
     },
   },
   server: {
@@ -15,7 +15,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')  // Quita /api para backend
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }
