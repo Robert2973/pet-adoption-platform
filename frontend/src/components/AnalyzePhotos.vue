@@ -1,6 +1,5 @@
 <template>
-  <v-container fluid class="pa-4" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); min-height: 100vh;">
-    <v-row justify="center" class="mb-8">
+  <v-container fluid class="pa-4" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100); min-height: 100vh;">       <v-row justify="center" class="mb-8">
       <v-col cols="12" md="8" class="text-center">
         <h1 class="display-2 font-weight-bold white--text mb-4">🔍 Análisis IA de Mascotas (como Google Lens)</h1>
         <p class="subtitle-1 white--text">Sube una foto para detectar especie, raza, edad y más</p>
