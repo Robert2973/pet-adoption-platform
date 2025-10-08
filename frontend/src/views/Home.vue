@@ -3,14 +3,14 @@
 
     <!-- BANNER PARALLAX PRINCIPAL -->
     <v-parallax
-      src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=1286&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="https://images.contentstack.io/v3/assets/blt66d7bca2bc8b988c/blt19b360b7289400e9/60528f106d24ea4cb9b5805b/085_dogs_and_cats_pink_background.jpg?width=2048&quality=auto&auto=webp"
       height="100%"
       width="100%"
       contain
     >
-      <v-row class="fill-height" align="center" justify="center">
+      <v-row class="fill-height" align="center" justify="center" style="color:blue">
         <v-col cols="12" class="text-center white--text">
-          <h1 class="display-2 font-weight-bold animate__animated animate__fadeInDown">
+          <h1 class="display-2 font-weight-bold animate__animated animate__fadeInDown white--text">
             ¡Adopta y cambia vidas!
           </h1>
           <p class="subtitle-1 animate__animated animate__fadeInUp">
@@ -46,10 +46,10 @@
     <!-- CARRUSEL DE MASCOTAS -->
     <v-container class="mt-12">
       <h2 class="text-center mb-6 font-weight-bold">Mascotas Disponibles</h2>
-      <v-carousel hide-delimiters height="320" cycle show-arrows-on-hover>
+      <v-carousel hide-delimiters height="520" cycle show-arrows-on-hover>
         <v-carousel-item v-for="(pet, i) in pets" :key="i">
           <v-sheet
-            class="d-flex flex-column align-center justify-center rounded-lg elevation-5 hover-scale hover-bg-color parallax-card"
+            class="d-flex flex-column align-center justify-center rounded-lg elevation-10 hover-scale hover-bg-color parallax-card"
             height="100%"
             color="#fff3f3"
           >
@@ -94,8 +94,8 @@
               class="rounded-lg mb-3 hover-scale-img"
             ></v-img>
             <h3 class="font-weight-medium">{{ type.name }}</h3>
-            <p>{{ type.description }}</p>
-            <p>{{ type.extended }}</p>
+            <p class="text-justify">{{ type.description }}</p>
+            <p class="text-justify">{{ type.extended }}</p>
           </v-card>
         </v-col>
       </v-row>
@@ -113,8 +113,8 @@
               class="rounded-lg mb-3 hover-scale-img"
             ></v-img>
             <h3 class="font-weight-medium">{{ tip.title }}</h3>
-            <p>{{ tip.description }}</p>
-            <p>{{ tip.extended }}</p>
+            <p class="text-justify">{{ tip.description }}</p>
+            <p class="text-justify">{{ tip.extended }}</p>
           </v-card>
         </v-col>
       </v-row>
@@ -132,8 +132,8 @@
               class="rounded-lg mb-3 hover-scale-img"
             ></v-img>
             <h3 class="font-weight-medium">{{ med.title }}</h3>
-            <p>{{ med.description }}</p>
-            <p>{{ med.extended }}</p>
+            <p class="text-justify">{{ med.description }}</p>
+            <p class="text-justify">{{ med.extended }}</p>
           </v-card>
         </v-col>
       </v-row>
@@ -151,8 +151,8 @@
               class="rounded-lg mb-3 hover-scale-img"
             ></v-img>
             <h3 class="font-weight-medium">{{ train.title }}</h3>
-            <p>{{ train.description }}</p>
-            <p>{{ train.extended }}</p>
+            <p class="text-justify">{{ train.description }}</p>
+            <p class="text-justify">{{ train.extended }}</p>
           </v-card>
         </v-col>
       </v-row>
@@ -170,8 +170,8 @@
               class="rounded-lg mb-3 hover-scale-img"
             ></v-img>
             <h3 class="font-weight-medium">{{ home.title }}</h3>
-            <p>{{ home.description }}</p>
-            <p>{{ home.extended }}</p>
+            <p class="text-justify">{{ home.description }}</p>
+            <p class="text-justify">{{ home.extended }}</p>
           </v-card>
         </v-col>
       </v-row>
@@ -205,8 +205,8 @@
           ¿Cómo funciona?
         </v-btn>
         <v-expand-transition>
-          <div v-if="showPointsInfo" class="mt-4 text-left">
-            <ul>
+          <div v-if="showPointsInfo" class="mt-4 text-center">
+            <ul class="centered-list">
               <li>Adopta una mascota → 50 puntos</li>
               <li>Comparte en redes sociales → 10 puntos</li>
               <li>Participa en eventos → 20 puntos</li>
@@ -321,6 +321,17 @@ export default {
   transform: translateY(30px);
   animation: fadeInUp 0.8s forwards;
   animation-delay: 0.2s;
+}
+
+.centered-list {
+  display: inline-block;
+  text-align: left;
+  list-style-position: inside;
+  padding: 0;
+  margin: 0 auto;
+}
+.centered-list li {
+  margin-bottom: 6px;
 }
 
 @keyframes fadeInUp {
