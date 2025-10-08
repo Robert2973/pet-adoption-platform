@@ -221,6 +221,11 @@ watch(selectedImage, () => {
 
 // FIX: Manejo del DOM Event en @change (sin cambios)
 const handleImageUpload = (event) => {
+
+if (analysis.value) {
+    resetAnalysis();
+  }
+
   try {
     console.log('Event recibido en @change:', event.type, event.target?.nodeName);  // Debug: Confirma Event
     errorMsg.value = null;  // Limpia errores

@@ -1,5 +1,10 @@
 <template>
   <v-container fluid fill-height class="login-container">
+    <!-- Fondo animado con huellitas -->
+    <div class="background-animation">
+      <div v-for="n in 15" :key="n" class="paw"></div>
+    </div>
+
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="4">
         <v-card
@@ -99,62 +104,121 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import axios from 'axios';
-import { useAuth } from '@/composables/useAuth';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+import { useAuth } from '@/composables/useAuth'
 
-const router = useRouter();
-const { checkAuth } = useAuth();
+const router = useRouter()
+const { checkAuth } = useAuth()
 
-const email = ref('');
-const password = ref('');
-const showPassword = ref(false);
-const loading = ref(false);
-const errorMsg = ref('');
-// ... otras variables y funciones
+const email = ref('')
+const password = ref('')
+const showPassword = ref(false)
+const loading = ref(false)
+const errorMsg = ref('')
+const parallaxTransform = ref('')
+
+const handleParallax = (e) => {
+  const x = (e.offsetX - e.target.offsetWidth / 2) / 40
+  const y = (e.offsetY - e.target.offsetHeight / 2) / 40
+  parallaxTransform.value = `rotateY(${x}deg) rotateX(${-y}deg)`
+}
+
+const resetParallax = () => {
+  parallaxTransform.value = 'rotateY(0deg) rotateX(0deg)'
+}
 
 const login = async () => {
   if (!email.value || !password.value) {
-    errorMsg.value = 'Por favor completa todos los campos.';
-    return;
+    errorMsg.value = 'Por favor completa todos los campos.'
+    return
   }
-  loading.value = true;
-  errorMsg.value = '';
+  loading.value = true
+  errorMsg.value = ''
   try {
-    const res = await axios.post('/login', { email: email.value, password: password.value });
-    localStorage.setItem('token', res.data.token);
-    localStorage.setItem('userId', res.data.user.id);
-    localStorage.setItem('isAdmin', res.data.user.isAdmin.toString());
-
-    checkAuth();  // <-- Actualiza el estado reactivo inmediatamente
-
-    router.push('/catalog');
+    const res = await axios.post('/login', { email: email.value, password: password.value })
+    localStorage.setItem('token', res.data.token)
+    localStorage.setItem('userId', res.data.user.id)
+    localStorage.setItem('isAdmin', res.data.user.isAdmin.toString())
+    checkAuth()
+    router.push('/catalog')
   } catch (err) {
-    errorMsg.value = err.response?.data?.error || 'Error en login';
+    errorMsg.value = err.response?.data?.error || 'Error en login'
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 </script>
-
 
 <style>
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
 .login-container {
-  background-color: #ffffff; /* Fondo blanco */
+  position: relative;
+  background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
+/* Fondo animado */
+.background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.paw {
+  position: absolute;
+  bottom: -50px;
+  width: 32px;
+  height: 32px;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png');
+  background-size: cover;
+  opacity: 0.3;
+  animation: floatUp linear infinite;
+}
+
+/* Genera diferentes posiciones y velocidades */
+.paw:nth-child(odd) { animation-duration: 12s; left: 10%; }
+.paw:nth-child(even) { animation-duration: 15s; left: 60%; }
+.paw:nth-child(3) { animation-duration: 10s; left: 30%; }
+.paw:nth-child(4) { animation-duration: 18s; left: 80%; }
+.paw:nth-child(5) { animation-duration: 13s; left: 50%; }
+.paw:nth-child(6) { animation-duration: 16s; left: 70%; }
+.paw:nth-child(7) { animation-duration: 14s; left: 40%; }
+.paw:nth-child(8) { animation-duration: 11s; left: 90%; }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Tarjeta principal */
 .login-card {
+  position: relative;
+  z-index: 2;
   border-radius: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   perspective: 1000px;
   overflow: hidden;
+  background: white;
 }
 
 /* Icono superior */
@@ -163,51 +227,44 @@ const login = async () => {
   margin-bottom: 16px;
 }
 
-/* Campos de texto animados */
+/* Campos */
 .animated-field input {
   transition: all 0.3s ease;
 }
-
 .animated-field input:focus {
   border-color: #ff4081 !important;
   box-shadow: 0 0 10px rgba(255, 64, 129, 0.3);
 }
 
-/* Botón login hover */
+/* Botones */
 .btn-hover {
   transition: all 0.3s ease;
 }
-
 .btn-hover:hover {
   transform: scale(1.07);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Botón cancelar hover */
 .btn-hover-secondary {
   transition: all 0.3s ease;
 }
-
 .btn-hover-secondary:hover {
   background-color: #ffe6ea !important;
   color: #000 !important;
   transform: scale(1.05);
 }
 
-/* Mensaje de error */
+/* Otros estilos */
 .v-alert {
   font-size: 0.9rem;
   text-align: center;
 }
-
-/* Link registrarse */
 .register-link {
   color: #ff4081;
   font-weight: 500;
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
 .register-link:hover {
   color: #e73370;
   text-decoration: underline;

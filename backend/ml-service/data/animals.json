@@ -1,39 +1,136 @@
 {
-"species": {
-"dog": {
-"breeds": [
-"golden retriever", "labrador retriever", "german shepherd", "poodle", "chihuahua",
-"beagle", "pug", "collie", "siberian husky", "dachshund", "great dane", "boxer",
-"bulldog", "mixed breed", "labrador", "shepherd", "retriever", "hound", "terrier",
-"spaniel", "mastiff", "dalmatian", "rottweiler", "doberman", "bernese mountain dog"
-],
-"tags": ["loyal", "energetic", "friendly", "protective", "playful", "intelligent"],
-"ages": ["puppy", "young", "adult", "senior"]
-},
-"cat": {
-"breeds": [
-"siamese cat", "persian cat", "maine coon", "tabby cat", "british shorthair",
-"bengal cat", "russian blue", "abyssinian", "scottish fold", "domestic shorthair",
-"sphynx", "ragdoll", "burmese", "siamese", "manx", "mixed breed cat"
-],
-"tags": ["playful", "curious", "independent", "affectionate", "agile", "vocal"],
-"ages": ["kitten", "young", "adult", "senior"]
-},
-"bird": {
-"breeds": [
-"parrot", "cockatiel", "budgerigar", "canary", "lovebird", "finch", "cockatoo",
-"macaw", "conure", "mixed bird"
-],
-"tags": ["colorful", "talkative", "social", "intelligent", "active"],
-"ages": ["juvenile", "young", "adult", "senior"]
-},
-"rabbit": {
-"breeds": [
-"dutch rabbit", "holland lop", "mini rex", "netherland dwarf", "flemish giant",
-"lionhead", "mixed rabbit"
-],
-"tags": ["gentle", "curious", "playful", "timid", "affectionate"],
-"ages": ["kit", "young", "adult", "senior"]
-}
-}
+  "species": {
+    "dog": {
+      "breeds": [
+        "mixed breed", "labrador_retriever", "golden_retriever", "german_shepherd", "poodle", "bulldog",
+        "beagle", "rottweiler", "dachshund", "boxer", "shih-tzu", "chihuahua", "pembroke",
+        "briard", "belgian_sheepdog", "bouvier_des_flandres", "puli", "komondor",
+        "schipperke", "malinois", "keeshond", "leonberg", "doberman",
+        "miniature_pinscher", "greater_swiss_mountain_dog", "saint_bernard", "eskimo_dog",
+        "malamute", "tibetan_mastiff", "japanese_spaniel", "maltese_dog",
+        "pekinese", "dandie_dinmont", "toy_poodle", "papillon", "mexican_hairless",
+        "appenzeller", "entlebucher", "bernese_mountain_dog", "samoyed",
+        "pomeranian", "chow", "brabancon_griffon", "tibetan_terrier", "blenheim_spaniel",
+        "collie", "border_collie", "shetland_sheepdog", "old_english_sheepdog",
+        "cairn", "irish_wolfhound", "saluki", "afghan_hound", "borzoi",
+        "scottish_deerhound", "ibizan_hound", "norwegian_elkhound", "otterhound",
+        "whippet", "toy_terrier", "brussels_griffon", "miniature_schnauzer",
+        "west_highland_white_terrier", "lhasa", "airedale", "bedlington_terrier",
+        "kerry_blue_terrier", "irish_terrier", "norfolk_terrier", "norwich_terrier",
+        "yorkshire_terrier", "wire-haired_fox_terrier", "lakeland_terrier",
+        "patterdale_terrier", "soft-coated_wheaten_terrier", "border_terrier",
+        "silky_terrier", "australian_terrier", "boston_bull", "giant_schnauzer",
+        "standard_schnauzer", "scotch_terrier", "siberian_husky", "alaskan_malamute",
+        "kelpie", "groenendael", "chow_chow", "dogo_argentino", "akita", "shiba_inu",
+        "siberian_labrador", "cane_corso", "bullmastiff", "spanish_mastiff", "tibetan_spaniel",
+        "irish_setter", "gordon_setter", "english_setter", "clumber_spaniel",
+        "sussex_spaniel", "nova_scotia_duck_tolling_retriever", "flat_coated_retriever",
+        "curly_coated_retriever", "english_springer_spaniel", "welsh_springer_spaniel",
+        "dogo_canario", "presa_canario", "tosa_inu", "bosnian_hound", "canaan_dog",
+        "thai_ridgeback", "pharaoh_hound", "cirneco_dell_etna", "mudi", "tornjak",
+        "slovakian_hound", "afghan_terrier", "australian_shepherd", "miniature_bull_terrier",
+        "dandie_pinscher", "patterdale_bull", "irish_red_and_white_setter", "english_toy_spaniel","Great_Dane"
+      ],
+      "tags": ["loyal", "energetic", "friendly", "protective", "playful", "intelligent", "alert", "obedient", "active"],
+      "ages": ["puppy", "young", "adult", "senior"]
+    },
+    "cat": {
+      "breeds": [
+        "mixed breed cat", "tabby", "siamese", "persian", "maine_coon", "russian_blue",
+        "abyssinian", "bengal", "british_shorthair", "scottish_fold", "ragdoll",
+        "sphinx", "burmese", "egyptian_mau", "oriental_shorthair", "devon_rex",
+        "cornish_rex", "american_shorthair", "exotic_shorthair", "birman", "balinese",
+        "javanese", "colorpoint_shorthair", "tonkinese", "ocicat", "singapura",
+        "bombay", "japanese_bobtail", "manx", "selkirk_rex", "la_perm",
+        "american_wirehair", "korat", "chartreux", "norwegian_forest", "turkish_angora",
+        "turkish_van", "siberian", "peterbald", "sokoke", "toyger",
+        "ragamuffin", "chausie", "savannah", "himalayan", "kurilian_bobtail", "pixie_bob",
+        "nebelung", "cyprus_cat", "german_angora", "donskoy", "ukrainian_levkoy",
+        "snowshoe", "ocicat_snow", "sokoke_safari", "burmilla", "toy_bob", "highlander",
+        "kurilian", "manx_longhair", "american_bobtail", "cymric", "la_perm_longhair",
+        "chantilly_tiffany", "havana_brown", "minuet_cat", "neva_masquerade",
+        "siberean_rare", "turkish_angora_longhair"
+
+      ],
+      "tags": ["playful", "curious", "independent", "affectionate", "agile", "vocal", "intelligent", "graceful"],
+      "ages": ["kitten", "young", "adult", "senior"]
+    },
+    "bird": {
+      "breeds": [
+        "mixed breed bird", "parrot", "cockatiel", "budgerigar", "lovebird", "conure",
+        "macaw", "cockatoo", "amazon_parrot", "african_grey", "eclectus", "lorikeet",
+        "quaker", "canary", "finch", "parakeet", "pigeon", "dove", "parrotlet",
+        "caique", "senegal_parrot", "meyer_s_parrot", "pionus", "pyrrhura", "rosella",
+        "ringneck", "indian_ringneck", "alexandrine", "monk_parakeet", "sun_conure",
+        "green_cheek_conure", "nanday_conure", "jenday_conure", "blue_crowned_conure",
+        "red_fronted_conure", "pygmy_parrot", "kakapo", "kea", "owl_parrot", "swift_parrot",
+        "lori", "honeycreeper", "hummingbird", "sparrow", "robin", "bluebird", "cardinal",
+        "oriole", "warbler", "thrush", "wren", "kingfisher", "woodpecker", "owl", "hawk",
+        "eagle", "falcon", "vulture", "pelican", "heron", "egret", "stork", "flamingo",
+        "duck", "goose", "swan", "pheasant", "quail", "turkey", "chicken", "rooster",
+        "hen", "peacock", "oriole_black", "blue_jay", "magpie", "ravens", "cock", "gouldian_finch",
+        "canary_american", "canary_spanish", "finch_zebra", "finch_love", "finch_gouldian",
+        "lovebird_peach", "lovebird_nyasa", "budgerigar_english", "budgerigar_australian",
+        "parrot_hybrids", "macaw_blue_gold", "macaw_green_wing", "cockatoo_galah"
+
+      ],
+      "tags": ["colorful", "talkative", "social", "intelligent", "active", "vocal", "playful"],
+      "ages": ["juvenile", "young", "adult", "senior"]
+    },
+    "rabbit": {
+      "breeds": [
+        "mixed breed rabbit", "dutch_rabbit", "netherland_dwarf", "lionhead", "holland_lop",
+        "mini_rex", "flemish_giant", "rex", "harlequin", "checkered_giant",
+        "american_fuzzy_lop", "english_spotted", "french_lop", "mini_lop", "polish",
+        "britannia_petite", "california", "cinnamon", "american_sable", "belgian_hare",
+        "english_lop", "giant_angora", "english_angora", "satin_angora", "jersey_woolly",
+        "cashmere_lop", "american_chinchilla", "standard_chinchilla", "giant_chinchilla",
+        "palomino", "silver", "silver_martens", "tan", "thrianta", "tri_color", "luna",
+        "hotot", "rex_himalayan", "fuzzy_angora", "tan_beige", "marble_rabbit", "argent_fauve",
+        "flemish_dwarf", "satinsmooth", "japan_rabbit", "belgian_white", "blue_rabbit",
+        "english_blue", "mini_angora", "american_lop", "french_angora_longhair"
+
+      ],
+      "tags": ["gentle", "curious", "playful", "timid", "affectionate", "friendly"],
+      "ages": ["kit", "young", "adult", "senior"]
+    },
+    "reptile": {
+      "breeds": [
+        "turtle", "tortoise", "iguana", "gecko", "bearded_dragon", "python", "boa", "chameleon",
+        "skink", "corn_snake", "king_snake", "ball_python", "leopard_gecko", "anole",
+        "monitor_lizard", "tegu", "glass_lizard", "agama", "horned_lizard", "gila_monster"
+      ],
+      "tags": ["quiet", "low-maintenance", "curious", "slow", "observant"],
+      "ages": ["juvenile", "young", "adult", "senior"]
+    },
+    "rodent": {
+      "breeds": [
+        "hamster", "guinea_pig", "rat", "mouse", "gerbil", "chinchilla", "degus", "sugar_glider",
+        "siberian_hamster", "dwarf_hamster", "long_tail_rat", "golden_gerbil", "white_rat",
+        "agouti_rat", "roborovski_hamster", "syrian_hamster", "campbell_hamster",
+        "mice_longhair", "mice_shorthaired"
+      ],
+      "tags": ["playful", "active", "social", "nocturnal", "curious"],
+      "ages": ["baby", "young", "adult", "senior"]
+    },
+    "fish": {
+      "breeds": [
+        "goldfish", "betta", "guppy", "angelfish", "neon_tetra", "clownfish", "gourami",
+        "molly", "platy", "cichlid", "discus", "danio", "rasbora", "tetra_cardinal",
+        "zebra_fish", "betta_crowntail", "betta_halfmoon"
+      ],
+      "tags": ["colorful", "peaceful", "active", "aquatic"],
+      "ages": ["juvenile", "young", "adult", "senior"]
+    },
+    "amphibian": {
+      "breeds": ["frog", "toad", "salamander", "axolotl", "newt", "tree_frog", "poison_dart_frog", "fire_bellied_toad"],
+      "tags": ["quiet", "moist_habitat", "curious"],
+      "ages": ["juvenile", "young", "adult", "senior"]
+    },
+    "unknown": {
+      "breeds": ["mixed", "unknown", "other"],
+      "tags": ["friendly", "curious", "adaptable"],
+      "ages": ["young", "adult", "senior"]
+    }
+  }
 }
