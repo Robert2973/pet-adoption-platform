@@ -1,13 +1,23 @@
 <template>
-  <v-container fluid class="pa-4" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100); min-height: 100vh;">       <v-row justify="center" class="mb-8">
+  <v-container fluid class="pa-4" :style="{
+    background: 'linear-gradient(135deg, #f9d423 0%, #ff4e50 100)',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: !imagePreview ? 'center' : 'flex-start',
+    paddingTop: !imagePreview ? '0' : '1rem',  // Reduce padding top inicial para mejor centrado
+    paddingBottom: !imagePreview ? '0' : '1rem'
+  }">
+    <!-- Título y subtítulo centrados horizontal y verticalmente (inicialmente) -->
+    <v-row justify="center" class="mb-8 flex-grow-1" :class="{ 'align-center': !imagePreview }">
       <v-col cols="12" md="8" class="text-center">
-        <h1 class="display-2 font-weight-bold white--text mb-4">🔍 Análisis IA de Mascotas (como Google Lens)</h1>
+        <h1 class="display-2 font-weight-bold white--text mb-4">🔍 Análisis IA de Mascotas</h1>
         <p class="subtitle-1 white--text">Sube una foto para detectar especie, raza, edad y más</p>
       </v-col>
     </v-row>
 
-    <!-- Input para subir/capturar imagen -->
-    <v-row justify="center" class="mb-6">
+    <!-- Input para subir/capturar imagen (centrado debajo del título) -->
+    <v-row justify="center" class="mb-6" :class="{ 'mt-0': !imagePreview }">
       <v-col cols="12" md="6">
         <v-file-input
           v-model="selectedImage"
@@ -74,7 +84,7 @@
       </v-col>
     </v-row>
 
-    <!-- NUEVO: Sección de características detalladas (abajo de la imagen, solo si hay análisis) -->
+    <!-- Sección de características detalladas (abajo de la imagen, solo si hay análisis) -->
     <v-row v-if="analysis" justify="center" class="mb-6">
       <v-col cols="12" md="10">
         <v-card class="mx-auto pa-6" elevation="8" color="white" rounded="lg">
@@ -140,7 +150,7 @@
             </v-col>
           </v-row>
 
-          <!-- NUEVO: Botón para limpiar y cargar otra -->
+          <!-- Botón para limpiar y cargar otra -->
           <v-row justify="center">
             <v-col cols="12" class="text-center">
               <v-btn
@@ -220,8 +230,7 @@ watch(selectedImage, () => {
 
 // FIX: Manejo del DOM Event en @change (sin cambios)
 const handleImageUpload = (event) => {
-
-if (analysis.value) {
+  if (analysis.value) {
     resetAnalysis();
   }
 
@@ -313,7 +322,7 @@ const showSnackbar = (message, color) => {
   snackbar.value = { show: true, message, color };
 };
 
-// NUEVO: Función para resetear análisis y permitir nueva imagen
+// Función para resetear análisis y permitir nueva imagen
 const resetAnalysis = () => {
   analysis.value = null;
   selectedImage.value = null;
@@ -328,5 +337,10 @@ const resetAnalysis = () => {
 .v-overlay {
   justify-content: flex-end;
   align-items: flex-start;
+}
+
+/* Ajuste adicional para centrado perfecto en el row del título */
+:deep(.v-row.align-center) {
+  align-items: center !important;
 }
 </style>

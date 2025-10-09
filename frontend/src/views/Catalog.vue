@@ -63,8 +63,8 @@
         class="d-flex"
       >
         <v-card
-          class="mx-auto my-4 pa-4 rounded-xl shadow-lg transform hover-elevate animate__animated animate__zoomIn"
-          style="background:linear-gradient(135deg, #667eea, #764ba2); transition: all 0.3s ease;"
+          class="mx-auto my-4 pa-4 rounded-xl shadow-lg transform hover-elevate animate__animated animate__zoomIn white--text pet-card"
+          style="background:linear-gradient(135deg, #667eea, #764ba2); transition: all 0.3s ease;  "
         >
           <v-img
             :src="`http://localhost:5000${pet.photo}`"
@@ -72,12 +72,12 @@
             class="mb-4 rounded-lg"
             @error="handleImgError"
           ></v-img>
-          <h3 class="text-h6 font-weight-bold mb-2">{{ pet.name }}</h3>
-          <p class="mb-2"><strong>Especie:</strong> {{ pet.species }}</p>
-          <p class="mb-2"><strong>Ubicación:</strong> {{ pet.location }}</p>
-          <p class="mb-2"><strong>Descripción:</strong> {{ pet.description }}</p>
+          <h3 class="text-h6 font-weight-bold mb-2 white--text">{{ pet.name }}</h3>
+          <p class="mb-2 white--text"><strong>Especie:</strong> {{ pet.species }}</p>
+          <p class="mb-2 white--text"><strong>Ubicación:</strong> {{ pet.location }}</p>
+          <p class="mb-2 white--text"><strong>Descripción:</strong> {{ pet.description }}</p>
           <!-- Opcional: Mostrar edad en la tarjeta si está disponible en el modelo -->
-          <p v-if="pet.age" class="mb-2"><strong>Edad:</strong> {{ pet.age }}</p>
+          <p v-if="pet.age" class="mb-2 white--text"><strong>Edad:</strong> {{ pet.age }}</p>
           <div class="d-flex justify-space-around mt-4">
             <v-btn small color="pink" @click="requestAdoption(pet)" :disabled="!isLoggedIn" class="hover-scale">
               <v-icon left>mdi-heart</v-icon> Adoptar
@@ -92,7 +92,7 @@
 
     <!-- Diálogo del formulario de adopción (expandido) -->
     <v-dialog v-model="adoptionDialog" max-width="600" persistent>
-      <v-card class="rounded-xl" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+      <v-card class="rounded-xl adoption-card" style="background: linear-gradient(135deg, #667eea, #764ba2);">
         <v-card-title class="white--text justify-center">
           <v-icon left color="white" size="32">mdi-heart</v-icon>
           Solicitar Adopción de {{ selectedPet ? selectedPet.name : '' }}
@@ -201,7 +201,7 @@
         </v-card-text>
 
         <v-card-actions class="pa-4 justify-space-between">
-          <v-btn color="grey" text @click="closeAdoptionDialog">
+          <v-btn color="white" text @click="closeAdoptionDialog">
             Cancelar
           </v-btn>
           <v-btn
@@ -210,7 +210,7 @@
             @click="submitAdoption"
             class="hover-scale white--text"
           >
-            <v-icon left>mdi-send</v-icon>
+            <v-icon color="white" left>mdi-send</v-icon>
             Enviar Solicitud
           </v-btn>
         </v-card-actions>
@@ -416,5 +416,50 @@ fetchPets();
 }
 .hover-scale:hover {
   transform: scale(1.05);
+}
+
+/* Forzar color blanco en textos de las tarjetas de mascotas */
+.pet-card {
+  color: white !important;
+}
+.pet-card h3,
+.pet-card p,
+.pet-card strong {
+  color: white !important;
+}
+.pet-card .text-h6 {
+  color: white !important;
+}
+
+/* Forzar color blanco en el formulario de adopción */
+.adoption-card {
+  color: white !important;
+}
+.adoption-card .v-label {
+  color: white !important;
+}
+.adoption-card input,
+.adoption-card textarea,
+.adoption-card select {
+  color: white !important;
+}
+.adoption-card input::placeholder,
+.adoption-card textarea::placeholder {
+  color: white !important;
+  opacity: 0.7;
+}
+.adoption-card .v-select__selection,
+.adoption-card .v-select__selection--placeholder {
+  color: white !important;
+}
+.adoption-card .v-input--checkbox label,
+.adoption-card .v-input--checkbox .v-label {
+  color: white !important;
+}
+.adoption-card .v-input__slot {
+  color: white !important;
+}
+.adoption-card .v-messages {
+  color: rgba(255, 255, 255, 0.7) !important; /* Para mensajes de error/validación, semi-transparente */
 }
 </style>
