@@ -10,7 +10,7 @@
             </v-col>
             <v-col cols="auto">
               <v-btn color="deep-purple accent-4" dark large @click="fetchAdoptions" class="hover-scale">
-                <v-icon left>mdi-refresh</v-icon> Recarregar
+                <v-icon left>mdi-refresh</v-icon> Recargar
               </v-btn>
             </v-col>
           </v-row>
@@ -47,46 +47,54 @@
                   <v-row>
                     <v-col cols="12" md="8">
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-account</v-icon>
-                        <span class="font-weight-bold">Usuario:</span>
-                        {{ adopt.userId?.email || 'Desconocido' }}
+                        <v-icon small class="mr-2 white--text">mdi-account</v-icon>
+                        <span class="font-weight-bold white--text">Usuario:</span>
+                        <span class="white--text">{{ adopt.userId?.email || 'Desconocido' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-dog</v-icon>
-                        <span class="font-weight-bold">Mascota:</span>
-                        {{ adopt.petId?.name || 'Desconocida' }} ({{ adopt.petId?.species || 'N/A' }})
+                        <v-icon small class="mr-2 white--text">mdi-dog</v-icon>
+                        <span class="font-weight-bold white--text">Mascota:</span>
+                        <span class="white--text">{{ adopt.petId?.name || 'Desconocida' }} ({{ adopt.petId?.species || 'N/A' }})</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-message-text</v-icon>
-                        <span class="font-weight-bold">Mensaje:</span> {{ adopt.message || 'N/A' }}
+                        <v-icon small class="mr-2 white--text">mdi-message-text</v-icon>
+                        <span class="font-weight-bold white--text">Mensaje:</span>
+                        <span class="white--text">{{ adopt.message || 'N/A' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-star</v-icon>
-                        <span class="font-weight-bold">Experiencia:</span> {{ adopt.experience || 'N/A' }}
+                        <v-icon small class="mr-2 white--text">mdi-star</v-icon>
+                        <span class="font-weight-bold white--text">Experiencia:</span>
+                        <span class="white--text">{{ adopt.experience || 'N/A' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-home</v-icon>
-                        <span class="font-weight-bold">Tipo de vivienda:</span> {{ adopt.housingType || 'N/A' }}
+                        <v-icon small class="mr-2 white--text">mdi-home</v-icon>
+                        <span class="font-weight-bold white--text">Tipo de vivienda:</span>
+                        <span class="white--text">{{ adopt.housingType || 'N/A' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-paw</v-icon>
-                        <span class="font-weight-bold">Otra mascota:</span> {{ adopt.hasOtherPets ? 'Sí' : 'No' }}
+                        <v-icon small class="mr-2 white--text">mdi-paw</v-icon>
+                        <span class="font-weight-bold white--text">Otra mascota:</span>
+                        <span class="white--text">{{ adopt.hasOtherPets ? 'Sí' : 'No' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-calendar-clock</v-icon>
-                        <span class="font-weight-bold">Disponibilidad:</span> {{ adopt.availability || 'N/A' }}
+                        <v-icon small class="mr-2 white--text">mdi-calendar-clock</v-icon>
+                        <span class="font-weight-bold white--text">Disponibilidad:</span>
+                        <span class="white--text">{{ adopt.availability || 'N/A' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-heart-pulse</v-icon>
-                        <span class="font-weight-bold">Compromiso con salud:</span> {{ adopt.healthCommitment ? 'Sí' : 'No' }}
+                        <v-icon small class="mr-2 white--text">mdi-heart-pulse</v-icon>
+                        <span class="font-weight-bold white--text">Compromiso con salud:</span>
+                        <span class="white--text">{{ adopt.healthCommitment ? 'Sí' : 'No' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-phone</v-icon>
-                        <span class="font-weight-bold">Contacto:</span> {{ adopt.phone || 'N/A' }}
+                        <v-icon small class="mr-2 white--text">mdi-phone</v-icon>
+                        <span class="font-weight-bold white--text">Contacto:</span>
+                        <span class="white--text">{{ adopt.phone || 'N/A' }}</span>
                       </div>
                       <div class="d-flex align-center mb-2">
-                        <v-icon small class="mr-2">mdi-email</v-icon>
-                        <span class="font-weight-bold">Email:</span> {{ adopt.email || 'N/A' }}
+                        <v-icon small class="mr-2 white--text">mdi-email</v-icon>
+                        <span class="font-weight-bold white--text">Email:</span>
+                        <span class="white--text">{{ adopt.email || 'N/A' }}</span>
                       </div>
                     </v-col>
 
@@ -235,5 +243,6 @@ body {
 }
 .custom-request-card {
   background-color: rgba(255, 255, 255, 0.1);
+  color: white;  /* Asegura que todos los textos sean blancos por defecto */
 }
 </style>

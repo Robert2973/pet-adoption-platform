@@ -1,6 +1,5 @@
 <template>
-  <v-container fluid class="pa-4" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); min-height: 100vh;">
-    <!-- Encabezado -->
+<v-container fluid class="pa-4" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100); min-height: 100vh;">    <!-- Encabezado -->
     <v-row justify="center" align="center" class="mb-8">
       <v-col cols="12" md="8" class="text-center">
         <h1 class="display-2 font-weight-bold white--text mb-4 animate__animated animate__fadeInDown">🐾 Gestión de Mis Mascotas</h1>
@@ -25,7 +24,7 @@
         class="d-flex"
       >
         <v-card
-          class="mx-auto my-4 pa-4 rounded-xl shadow-lg transform hover-elevate animate__animated animate__zoomIn"
+          class="mx-auto my-4 pa-4 rounded-xl shadow-lg transform hover-elevate animate__animated animate__zoomIn pet-card"
           style="background: linear-gradient(135deg, #667eea, #764ba2); transition: all 0.3s ease;"
         >
           <v-img
@@ -61,7 +60,7 @@
 
     <!-- Diálogo para agregar/editar mascota -->
     <v-dialog v-model="crudDialog" max-width="600" persistent>
-      <v-card class="rounded-xl" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+      <v-card class="rounded-xl crud-card" style="background: linear-gradient(135deg, #667eea, #764ba2);">
         <v-card-title class="white--text justify-center">
           <v-icon left color="white" size="32">{{ isEditing ? 'mdi-pencil' : 'mdi-plus' }}</v-icon>
           {{ isEditing ? 'Editar' : 'Agregar' }} Mascota
@@ -76,7 +75,7 @@
               dense
               :rules="[v => !!v || 'Nombre requerido']"
               prepend-inner-icon="mdi-account"
-              class="mb-4 white--text"
+              class="mb-4"
             ></v-text-field>
 
             <v-select
@@ -87,7 +86,7 @@
               dense
               :rules="[v => !!v || 'Especie requerida']"
               prepend-inner-icon="mdi-dog"
-              class="mb-4 white--text"
+              class="mb-4"
             ></v-select>
 
             <v-select
@@ -98,7 +97,7 @@
               dense
               :rules="[v => !!v || 'Edad requerida']"
               prepend-inner-icon="mdi-cake"
-              class="mb-4 white--text"
+              class="mb-4"
             ></v-select>
 
             <v-text-field
@@ -108,7 +107,7 @@
               dense
               :rules="[v => !!v || 'Ubicación requerida']"
               prepend-inner-icon="mdi-map-marker"
-              class="mb-4 white--text"
+              class="mb-4"
             ></v-text-field>
 
             <v-textarea
@@ -119,7 +118,7 @@
               rows="3"
               :rules="[v => !!v || 'Descripción requerida', v => v.length >= 10 || 'Mínimo 10 caracteres']"
               prepend-inner-icon="mdi-text"
-              class="mb-4 white--text"
+              class="mb-4"
             ></v-textarea>
 
             <v-file-input
@@ -129,7 +128,7 @@
               dense
               accept="image/*"
               prepend-inner-icon="mdi-camera"
-              class="mb-4 white--text"
+              class="mb-4"
               :rules="[v => !v || v.size < 2000000 || 'Imagen debe ser menor a 2MB']"
             ></v-file-input>
 
@@ -163,7 +162,7 @@
 
     <!-- Diálogo de confirmación para eliminar -->
     <v-dialog v-model="deleteDialog" max-width="500" persistent>
-      <v-card class="rounded-xl" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+      <v-card class="rounded-xl delete-card" style="background: linear-gradient(135deg, #667eea, #764ba2);">
         <v-card-title class="white--text justify-center">
           <v-icon left color="white" size="32">mdi-alert</v-icon>
           ¿Eliminar {{ selectedPet ? selectedPet.name : '' }}?
@@ -338,4 +337,57 @@ fetchPets();
 .hover-scale:hover { transform: scale(1.05); }
 .transform { transition: all 0.3s ease; }
 .hover-elevate:hover { transform: translateY(-5px); }
+
+/* Forzar color blanco en textos de las tarjetas de mascotas */
+.pet-card {
+  color: white !important;
+}
+.pet-card h3,
+.pet-card p,
+.pet-card strong {
+  color: white !important;
+}
+.pet-card .text-h6 {
+  color: white !important;
+}
+
+/* Forzar color blanco en el formulario de agregar/editar */
+.crud-card {
+  color: white !important;
+}
+.crud-card .v-label {
+  color: white !important;
+}
+.crud-card input,
+.crud-card textarea,
+.crud-card select {
+  color: white !important;
+}
+.crud-card input::placeholder,
+.crud-card textarea::placeholder {
+  color: white !important;
+  opacity: 0.7;
+}
+.crud-card .v-select__selection,
+.crud-card .v-select__selection--placeholder {
+  color: white !important;
+}
+.crud-card .v-file-input__text,
+.crud-card .v-file-input label {
+  color: white !important;
+}
+.crud-card .v-input__slot {
+  color: white !important;
+}
+.crud-card .v-messages {
+  color: rgba(255, 255, 255, 0.7) !important; /* Para mensajes de error/validación */
+}
+
+/* Forzar color blanco en el diálogo de eliminar (por consistencia) */
+.delete-card {
+  color: white !important;
+}
+.delete-card .v-card-text {
+  color: white !important;
+}
 </style>
