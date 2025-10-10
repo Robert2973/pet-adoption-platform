@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pa-4" :style="{
-    background: 'linear-gradient(135deg, #f9d423 0%, #ff4e50 100)',
+    background: 'linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%)',
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',

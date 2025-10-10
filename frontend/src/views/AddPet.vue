@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+<v-container fluid class="pa-4" style="background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%); min-height: 100vh;">
     <v-card class="pa-4" elevation="2">
       <v-card-title>Agregar Nueva Mascota</v-card-title>
       <v-card-text>

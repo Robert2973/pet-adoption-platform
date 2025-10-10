@@ -49,7 +49,7 @@
 
     <!-- Footer -->
     <v-footer app>
-      <span>© 2023 Plataforma de Adopción con Gamificación</span>
+      <span>© 2025 Plataforma de Adopción</span>
     </v-footer>
   </v-app>
 </template>
@@ -63,7 +63,6 @@ const { isLoggedIn, isAdmin, checkAuth, logout } = useAuth();
 
 onMounted(() => {
   checkAuth();
-  // Escucha cambios en localStorage para sincronizar sesión entre pestañas
   window.addEventListener('storage', checkAuth);
 });
 </script>

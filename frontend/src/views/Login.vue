@@ -1,8 +1,11 @@
 <template>
   <v-container fluid fill-height class="login-container">
-    <!-- Fondo animado con huellitas -->
+    <!-- Fondo animado con huellitas y gatitos -->
     <div class="background-animation">
-      <div v-for="n in 15" :key="n" class="paw"></div>
+      <!-- Gatitos primero -->
+      <div v-for="n in 10" :key="'cat' + n" class="cat"></div>
+      <!-- Huellitas después -->
+      <div v-for="n in 15" :key="'paw' + n" class="paw"></div>
     </div>
 
     <v-row justify="center" align="center">
@@ -184,17 +187,57 @@ const login = async () => {
   background-size: cover;
   opacity: 0.3;
   animation: floatUp linear infinite;
+  z-index: 1;
 }
 
-/* Genera diferentes posiciones y velocidades */
-.paw:nth-child(odd) { animation-duration: 12s; left: 10%; }
-.paw:nth-child(even) { animation-duration: 15s; left: 60%; }
-.paw:nth-child(3) { animation-duration: 10s; left: 30%; }
-.paw:nth-child(4) { animation-duration: 18s; left: 80%; }
-.paw:nth-child(5) { animation-duration: 13s; left: 50%; }
-.paw:nth-child(6) { animation-duration: 16s; left: 70%; }
-.paw:nth-child(7) { animation-duration: 14s; left: 40%; }
-.paw:nth-child(8) { animation-duration: 11s; left: 90%; }
+/* Posiciones y velocidades para huellitas (variadas) */
+.paw:nth-of-type(1) { animation-duration: 12s; left: 10%; }
+.paw:nth-of-type(2) { animation-duration: 15s; left: 60%; }
+.paw:nth-of-type(3) { animation-duration: 10s; left: 30%; }
+.paw:nth-of-type(4) { animation-duration: 18s; left: 80%; }
+.paw:nth-of-type(5) { animation-duration: 13s; left: 50%; }
+.paw:nth-of-type(6) { animation-duration: 16s; left: 70%; }
+.paw:nth-of-type(7) { animation-duration: 14s; left: 40%; }
+.paw:nth-of-type(8) { animation-duration: 11s; left: 90%; }
+.paw:nth-of-type(9) { animation-duration: 17s; left: 20%; }
+.paw:nth-of-type(10) { animation-duration: 9s; left: 55%; }
+.paw:nth-of-type(11) { animation-duration: 20s; left: 5%; }
+.paw:nth-of-type(12) { animation-duration: 13s; left: 75%; }
+.paw:nth-of-type(13) { animation-duration: 16s; left: 35%; }
+.paw:nth-of-type(14) { animation-duration: 12s; left: 95%; }
+.paw:nth-of-type(15) { animation-duration: 14s; left: 15%; }
+
+.cat {
+  position: absolute;
+  bottom: -80px; /* Empiezan más abajo para no solaparse con paws */
+  width: 50px; /* Más grandes que las paws para que se noten */
+  height: 50px;
+  opacity: 0.6; /* Inicial visible */
+  animation: floatUpCat linear infinite; /* Animación como las paws, pero juguetona */
+  z-index: 1;
+}
+
+.cat::before {
+  content: '🐈'; /* Emoji gatito */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  line-height: 1;
+}
+
+/* Posiciones y velocidades para gatitos (más lentos y variados, como las paws) */
+.cat:nth-of-type(1) { animation-duration: 20s; left: 15%; }
+.cat:nth-of-type(2) { animation-duration: 25s; left: 45%; }
+.cat:nth-of-type(3) { animation-duration: 18s; left: 70%; }
+.cat:nth-of-type(4) { animation-duration: 22s; left: 5%; }
+.cat:nth-of-type(5) { animation-duration: 28s; left: 85%; }
+.cat:nth-of-type(6) { animation-duration: 19s; left: 35%; }
+.cat:nth-of-type(7) { animation-duration: 24s; left: 65%; }
+.cat:nth-of-type(8) { animation-duration: 21s; left: 25%; }
+.cat:nth-of-type(9) { animation-duration: 26s; left: 55%; }
+.cat:nth-of-type(10) { animation-duration: 23s; left: 80%; }
 
 @keyframes floatUp {
   0% {
@@ -210,7 +253,31 @@ const login = async () => {
   }
 }
 
-/* Tarjeta principal */
+/* Animación para gatitos: Similar a floatUp, pero con escala juguetona (como perritos saltando) */
+@keyframes floatUpCat {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-20vh) rotate(-15deg) scale(1.1); /* Salto juguetón */
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-50vh) rotate(0deg) scale(0.95);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(-80vh) rotate(15deg) scale(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(360deg) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Resto de estilos (sin cambios) */
 .login-card {
   position: relative;
   z-index: 2;
@@ -221,13 +288,11 @@ const login = async () => {
   background: white;
 }
 
-/* Icono superior */
 .icon-container {
   text-align: center;
   margin-bottom: 16px;
 }
 
-/* Campos */
 .animated-field input {
   transition: all 0.3s ease;
 }
@@ -236,7 +301,6 @@ const login = async () => {
   box-shadow: 0 0 10px rgba(255, 64, 129, 0.3);
 }
 
-/* Botones */
 .btn-hover {
   transition: all 0.3s ease;
 }
@@ -254,7 +318,6 @@ const login = async () => {
   transform: scale(1.05);
 }
 
-/* Otros estilos */
 .v-alert {
   font-size: 0.9rem;
   text-align: center;

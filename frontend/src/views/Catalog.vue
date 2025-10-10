@@ -1,5 +1,5 @@
 <template>
-<v-container fluid class="pa-4" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100); min-height: 100vh;">
+<v-container fluid class="pa-4" style="background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%); min-height: 100vh;">
     <!-- Encabezado llamativo -->
     <v-row justify="center" align="center" class="mb-8">
       <v-col cols="12" md="8" class="text-center">

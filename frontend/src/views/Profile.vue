@@ -1,5 +1,5 @@
 <template>
-  <v-container class="py-6">
+<v-container fluid class="py-6" style="background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%); min-height: 100vh;">
     <!-- Banner -->
     <v-sheet
       class="text-center pa-6 mb-6 rounded-lg"

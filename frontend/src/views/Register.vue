@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid fill-height class="register-container">
-    <v-row justify="center" align="center">
+<v-container fluid fill-height class="page-container">
+    <AnimatedBackground :num-cats="8" :num-paws="12" />    <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="4">
         <v-card
           class="pa-6 register-card animate__animated animate__fadeInUp"
@@ -81,6 +81,7 @@
 </template>
 
 <script setup>
+import AnimatedBackground from '@/components/AnimatedBackground.vue'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';

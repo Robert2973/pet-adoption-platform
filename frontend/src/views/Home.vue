@@ -1,6 +1,5 @@
 <template>
-  <v-container fluid class="pa-0">
-
+<v-container fluid class="pa-0" style="background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%); min-height: 100vh;">
     <!-- BANNER PARALLAX PRINCIPAL -->
     <v-parallax
       src="https://images.contentstack.io/v3/assets/blt66d7bca2bc8b988c/blt19b360b7289400e9/60528f106d24ea4cb9b5805b/085_dogs_and_cats_pink_background.jpg?width=2048&quality=auto&auto=webp"
@@ -61,8 +60,6 @@
             class="rounded-lg hover-scale-img"
           ></v-img>
             <h3 class="font-weight-medium mt-2">{{ pet.name }}</h3>
-            <p class="mb-0">{{ pet.species }} • {{ pet.age }}</p>
-            <v-btn small color="pink" class="mt-2">Adoptar</v-btn>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
