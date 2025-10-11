@@ -10,6 +10,7 @@ const { body, validationResult } = require('express-validator');
 const User = require('./models/User');
 const Pet = require('./models/Pet');
 const Adoption = require('./models/Adoption');
+const userRoutes = require('./routes/users');  // Ajusta path
 
 // NUEVO: Para proxy a Flask ML (agregado sin modificar lo original)
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -22,6 +23,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secreto123';
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/users', userRoutes);
 
 // Multer para subidas
 const storage = multer.diskStorage({

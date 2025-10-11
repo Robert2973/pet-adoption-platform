@@ -1,33 +1,51 @@
+// src/stores/gamification.js
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import { ref, computed } from 'vue';
 
-export const useGamificationStore = defineStore('gamification', {
-  state: () => ({
-    points: 0,
-    achievements: []
-  }),
-  actions: {
-    async addPoints(amount, achievement = null) {
-      try {
-        const userId = localStorage.getItem('userId');
-        if (!userId) throw new Error('No logueado');
-        const res = await axios.put('/users/points', {
-          userId,
-          pointsToAdd: amount,
-          achievement
-        });
-        this.points = res.data.points;
-        this.achievements = res.data.achievements;
-        console.log(`+${amount} puntos! Total: ${this.points}`);
-      } catch (err) {
-        console.error('Error agregando puntos:', err);
-      }
-    },
-    unlockAchievement(name) {
-      if (!this.achievements.includes(name)) {
-        this.achievements.push(name);
-        // Opcional: Llama API para persistir si no lo hace addPoints
-      }
+export const useGamificationStore = defineStore('gamification', () => {
+  const points = ref(0);
+  const achievements = ref([]);
+
+  const addPoints = (amount) => {
+    if (amount > 0) {
+      points.value += amount;
+      console.log(`+${amount} puntos. Total: ${points.value}`);
+      checkAchievements();  // Check badges por level
     }
-  }
+  };
+
+  const unlockAchievement = (name) => {
+    if (name && !achievements.value.includes(name)) {
+      achievements.value.push(name);
+      console.log(`¡Badge unlocked: ${name}! (Level ${level.value})`);
+    }
+  };
+
+  const checkAchievements = () => {
+    const currentLevel = level.value;
+    if (currentLevel >= 1 && !achievements.value.includes('Adoptador Novato')) {
+      unlockAchievement('Adoptador Novato');
+    }
+    if (currentLevel >= 2 && !achievements.value.includes('Amigo de los Animales')) {
+      unlockAchievement('Amigo de los Animales');
+    }
+    if (currentLevel >= 3 && !achievements.value.includes('Super Adoptador')) {
+      unlockAchievement('Super Adoptador');
+    }
+    // Agrega más levels/badges
+  };
+
+  // Getters reactivos
+  const level = computed(() => Math.floor(points.value / 100) + 1);
+  const progressToNextLevel = computed(() => points.value % 100);
+
+  return {
+    points,
+    achievements,
+    level,
+    progressToNextLevel,
+    addPoints,  // Backend llama +100, store actualiza UI
+    unlockAchievement,
+    checkAchievements
+  };
 });
