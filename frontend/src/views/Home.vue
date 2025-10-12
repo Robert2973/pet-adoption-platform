@@ -204,9 +204,8 @@
         <v-expand-transition>
           <div v-if="showPointsInfo" class="mt-4 text-center">
             <ul class="centered-list">
-              <li>Adopta una mascota → 50 puntos</li>
-              <li>Comparte en redes sociales → 10 puntos</li>
-              <li>Participa en eventos → 20 puntos</li>
+              <li>Adopta una mascota → 20 puntos</li>
+              <li>Comparte en redes sociales → 50 puntos</li>
             </ul>
           </div>
         </v-expand-transition>

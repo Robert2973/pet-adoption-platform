@@ -226,6 +226,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';  // Agregado watch para campos condicionales
+const API_BASE = 'http://localhost:5000';  // ← FIX: Base URL para API (ajusta puerto si diferente)
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
@@ -379,22 +380,46 @@ const closeAdoptionDialog = () => {
   if (adoptionForm.value) adoptionForm.value.resetValidation();
 };
 
+// Función para compartir mascota (+50 puntos via API)
 const sharePet = async (pet) => {
   if (!isLoggedIn.value) {
     router.push('/login');
     return;
   }
+
   try {
+    let shared = false;
     if (navigator.share) {
       await navigator.share({ title: pet.name, url: window.location.href });
+      shared = true;
     } else {
       await navigator.clipboard.writeText(`${pet.name}: ${window.location.origin}/catalog`);
+      shared = true;
       showSnackbar('Link copiado al clipboard!', 'info');
     }
+
+    if (shared) {
+      // ← NUEVO: Llama API para registrar share (+50 pts en backend)
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`${API_BASE}/users/${userId}/share`, {}, {
+        headers: { Authorization: `Bearer ${token}` }  // Si auth en ruta
+      });
+
+      console.log('✅ Share registrado:', response.data.message);
+      showSnackbar('¡Compartido! +50 puntos ganados 🐕', 'success');
+    }
   } catch (err) {
-    showSnackbar('Error compartiendo', 'error');
+    console.error('Error en share:', err);
+    if (err.response?.status !== 200) {  // Si API falla
+      showSnackbar('Error registrando share (sin puntos)', 'error');
+    }
   }
 };
+
+
+
+
 
 const showSnackbar = (message, color) => {
   snackbar.value = { show: true, message, color };

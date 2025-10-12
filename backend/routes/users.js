@@ -111,6 +111,34 @@ router.put('/:id/change-password', async (req, res) => {
   }
 });
 
+// ... routes existentes ...
+
+// POST /users/:id/share: +1 sharesCount (+50 puntos implícito en frontend)
+router.post('/:id/share', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    user.sharesCount += 1;  // +1 por share
+    await user.save();
+
+    console.log(`✅ +1 share para user ${user.email} (total shares: ${user.sharesCount})`);  // Log
+
+    // Retorna user sin password (para frontend total points)
+    const { password, ...userSafe } = user.toObject();
+    res.json({ message: 'Compartición registrada! +50 puntos', user: userSafe });
+  } catch (err) {
+    console.error('Error en share:', err);
+    res.status(500).json({ error: 'Error interno' });
+  }
+});
+
+// module.exports = router;
+
+
 
 
 module.exports = router;

@@ -2,7 +2,6 @@
   <v-app>
     <!-- Barra de navegación superior -->
     <v-app-bar app color="primary" dark>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title>Plataforma de Adopción de Mascotas</v-app-bar-title>
       <v-spacer></v-spacer>
 
@@ -20,27 +19,9 @@
       <v-btn v-if="isLoggedIn && isAdmin" to="/gestion" text>Gestion</v-btn>
 
       <v-btn v-if="!isLoggedIn" to="/login" text>Iniciar Sesión</v-btn>
-      <v-btn v-if="isLoggedIn" text @click="logout">Cerrar Sesión</v-btn>
+      <!-- FIX: Usa handleLogout para logout + push('/login') inmediato -->
+      <v-btn v-if="isLoggedIn" text @click="handleLogout">Cerrar Sesión</v-btn>
     </v-app-bar>
-
-    <!-- Drawer lateral -->
-    <v-navigation-drawer v-model="drawer" app temporary>
-      <v-list nav>
-        <v-list-item to="/" title="Inicio" />
-        <v-list-item to="/catalog" title="Catálogo" />
-        <!-- NUEVO: Enlace para Análisis IA (visible para todos) -->
-        <v-list-item to="/analyze-photos" title="Análisis IA" />
-
-        <!-- Perfil solo para usuarios normales -->
-        <v-list-item v-if="isLoggedIn && !isAdmin" to="/profile" title="Perfil" />
-
-        <!-- Solicitudes solo para admins -->
-        <v-list-item v-if="isLoggedIn && isAdmin" to="/admin" title="Solicitudes" />
-
-        <v-list-item v-if="!isLoggedIn" to="/login" title="Iniciar Sesión" />
-        <v-list-item v-if="isLoggedIn" @click="logout" title="Cerrar Sesión" />
-      </v-list>
-    </v-navigation-drawer>
 
     <!-- Contenido principal -->
     <v-main>
@@ -56,10 +37,27 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useAuth } from '@/composables/useAuth';
 
+const router = useRouter();  // ← FIX: Instancia router
 const drawer = ref(false);
 const { isLoggedIn, isAdmin, checkAuth, logout } = useAuth();
+
+// ← FIX: Nueva función handleLogout (llama logout() + navega a /login inmediatamente)
+const handleLogout = async () => {
+  try {
+    await logout();  // Limpia storage (token, userId, etc.) via useAuth
+    console.log('Logout ejecutado: Storage limpiado');  // Debug opcional
+    router.push('/login');  // ← FIX: Navega inmediatamente a /login (unmount Profile)
+  } catch (err) {
+    console.error('Error en logout:', err);
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('isAdmin');
+    router.push('/login');
+  }
+};
 
 onMounted(() => {
   checkAuth();

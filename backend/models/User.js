@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
   activities: [{  // NUEVO: Actividades recientes
     title: String,
     date: { type: Date, default: Date.now }
-  }]
+  }],
+  sharesCount: { type: Number, default: 0 }
 });
 
 // Middleware para poblar pets (mascotas adoptadas)
