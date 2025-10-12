@@ -197,7 +197,8 @@ app.post('/pets', upload.single('photo'), async (req, res) => {
     }
     const pet = new Pet({
       ...req.body,
-      photo: req.file ? `/uploads/${req.file.filename}` : null,
+      //photo: req.file ? `/uploads/${req.file.filename}` : null,
+      photo: req.file ? `http://${req.hostname}:5000/uploads/${req.file.filename}` : null,
       tags
     });
     await pet.save();
@@ -321,4 +322,6 @@ const analyzeRoutes = require('./routes/analyze');
 app.use('/api', analyzeRoutes);  // Todas las rutas de analyze.js tendrán prefijo /api
 
 // Servidor
-app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor en puerto ${PORT}`);
+});

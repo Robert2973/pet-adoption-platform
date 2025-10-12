@@ -1,5 +1,5 @@
 <template>
-<v-container fluid class="pa-4" style="background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%); min-height: 100vh;">
+  <v-container fluid class="pa-4" style="background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%); min-height: 100vh;">
     <v-row justify="center">
       <v-col cols="12" md="10" lg="8">
         <v-card class="pa-4 custom-card elevation-8">
@@ -15,7 +15,6 @@
             </v-col>
           </v-row>
 
-          <!-- Separador -->
           <v-divider class="mb-4"></v-divider>
 
           <!-- Estado de carga o error -->
@@ -45,6 +44,15 @@
               <v-hover v-slot:default="{ isHovering }">
                 <v-card :elevation="isHovering ? 12 : 4" class="pa-4 custom-request-card transition-ease" hover>
                   <v-row>
+                    <v-col cols="12" md="4">
+                      <!-- Foto de la mascota -->
+                      <v-img
+                        :src="adopt.petId?.photo ? `${API_BASE}${adopt.petId.photo}` : placeholderImage"
+                        height="150"
+                        class="mb-4 rounded-lg"
+                      ></v-img>
+                    </v-col>
+
                     <v-col cols="12" md="8">
                       <div class="d-flex align-center mb-2">
                         <v-icon small class="mr-2 white--text">mdi-account</v-icon>
@@ -99,15 +107,15 @@
                     </v-col>
 
                     <!-- Acciones -->
-                    <v-col cols="12" md="4" class="d-flex flex-column align-center justify-center">
+                    <v-col cols="12" class="d-flex flex-row justify-end mt-2">
                       <v-chip :color="getStatusColor(adopt.status)" class="mb-3" dark>
                         {{ adopt.status?.charAt(0).toUpperCase() + adopt.status?.slice(1) || 'N/A' }}
                       </v-chip>
-                      <div v-if="adopt.status === 'pending'">
-                        <v-btn large block color="green darken-2" class="mb-2" @click="approveAdoption(adopt._id)">
+                      <div v-if="adopt.status === 'pending'" class="ml-2">
+                        <v-btn color="green darken-2" class="mr-2" @click="approveAdoption(adopt._id)">
                           <v-icon left>mdi-check</v-icon> Aprobar
                         </v-btn>
-                        <v-btn large block color="red darken-2" @click="rejectAdoption(adopt._id)">
+                        <v-btn color="red darken-2" @click="rejectAdoption(adopt._id)">
                           <v-icon left>mdi-close</v-icon> Rechazar
                         </v-btn>
                       </div>
@@ -133,14 +141,17 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-// Variables reactivas
+// Base URL dinámico
+const API_BASE = `http://${window.location.hostname}:5000`
+
 const router = useRouter()
 const adoptions = ref([])
 const loading = ref(false)
 const error = ref('')
 const snackbar = ref({ show: false, message: '', color: '' })
+const placeholderImage = '/placeholder-pet.jpg'
 
-// Función para traer las solicitudes
+// Traer solicitudes
 const fetchAdoptions = async () => {
   try {
     loading.value = true
@@ -148,7 +159,7 @@ const fetchAdoptions = async () => {
     const token = localStorage.getItem('token')
     if (!token) throw new Error('Token no encontrado')
 
-    const res = await axios.get('http://localhost:5000/admin/adoptions', {
+    const res = await axios.get(`${API_BASE}/admin/adoptions`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     adoptions.value = res.data
@@ -160,11 +171,11 @@ const fetchAdoptions = async () => {
   }
 }
 
-// Funciones para aprobar y rechazar
+// Aprobar / rechazar
 const approveAdoption = async (id) => {
   try {
     const token = localStorage.getItem('token')
-    await axios.put(`http://localhost:5000/adoptions/${id}`, { status: 'approved' }, {
+    await axios.put(`${API_BASE}/adoptions/${id}`, { status: 'approved' }, {
       headers: { Authorization: `Bearer ${token}` }
     })
     showSnackbar('¡Adopción aprobada!', 'success')
@@ -178,7 +189,7 @@ const approveAdoption = async (id) => {
 const rejectAdoption = async (id) => {
   try {
     const token = localStorage.getItem('token')
-    await axios.put(`http://localhost:5000/adoptions/${id}`, { status: 'rejected' }, {
+    await axios.put(`${API_BASE}/adoptions/${id}`, { status: 'rejected' }, {
       headers: { Authorization: `Bearer ${token}` }
     })
     showSnackbar('¡Adopción rechazada!', 'warning')
@@ -189,24 +200,18 @@ const rejectAdoption = async (id) => {
   }
 }
 
-// Función para el color del estado
 const getStatusColor = (status) => {
   switch (status) {
-    case 'approved':
-      return 'green darken-2'
-    case 'rejected':
-      return 'red darken-2'
-    default:
-      return 'orange darken-2'
+    case 'approved': return 'green darken-2'
+    case 'rejected': return 'red darken-2'
+    default: return 'orange darken-2'
   }
 }
 
-// Función para mostrar notificación
 const showSnackbar = (message, color) => {
   snackbar.value = { show: true, message, color }
 }
 
-// Verificación de usuario admin
 onMounted(() => {
   if (localStorage.getItem('isAdmin') !== 'true') {
     router.push('/login')
@@ -217,9 +222,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
 .custom-card {
   background: linear-gradient(135deg, #667eea, #764ba2);
   border-radius: 20px;
@@ -243,6 +245,6 @@ body {
 }
 .custom-request-card {
   background-color: rgba(255, 255, 255, 0.1);
-  color: white;  /* Asegura que todos los textos sean blancos por defecto */
+  color: white;
 }
 </style>

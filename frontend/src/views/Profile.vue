@@ -278,6 +278,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import api from '@/api';
 
 const router = useRouter();
 
@@ -324,7 +325,9 @@ const availableAvatars = ref([
 const defaultAvatar = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
 
 // Base URL para API
-const API_BASE = 'http://localhost:5000';
+//const API_BASE = 'http://localhost:5000';
+const API_BASE = `http://${window.location.hostname}:5000`;
+
 
 // ← NUEVO: Puntos Total = Adopciones *20 + Shares *50 (reactivo)
 const currentPoints = computed(() => {
@@ -371,7 +374,7 @@ const fetchProfile = async () => {
     if (!userId) throw new Error('No hay usuario logueado');
 
     // 1. Fetch usuario básico (incluye sharesCount)
-    const userRes = await axios.get(`${API_BASE}/users/${userId}`);
+    const userRes = await api.get(`${API_BASE}/users/${userId}`);
     user.value = userRes.data;
 
     // ← NUEVO: Carga sharesCount de user
@@ -388,7 +391,7 @@ const fetchProfile = async () => {
     // 2. Fetch adopciones para stats
     let adoptions = [];
     try {
-      const adoptionsRes = await axios.get(`${API_BASE}/users/${userId}/adoptions`);
+      const adoptionsRes = await api.get(`${API_BASE}/users/${userId}/adoptions`);
       adoptions = Array.isArray(adoptionsRes.data) ? adoptionsRes.data : [];
     } catch (adoptErr) {
       console.warn('Endpoint /adoptions no disponible, usando fallback:', adoptErr);
@@ -419,7 +422,7 @@ const fetchProfile = async () => {
     // 3. Fetch actividades (fallback)
     let activities = [];
     try {
-      const activitiesRes = await axios.get(`${API_BASE}/users/${userId}/activities`);
+      const activitiesRes = await api.get(`${API_BASE}/users/${userId}/activities`);
       activities = Array.isArray(activitiesRes.data) ? activitiesRes.data : [];
     } catch (actErr) {
       console.warn('Endpoint /activities no disponible, derivando de badges:', actErr);

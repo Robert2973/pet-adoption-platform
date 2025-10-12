@@ -85,6 +85,7 @@ import AnimatedBackground from '@/components/AnimatedBackground.vue'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import api from '@/api';
 
 const router = useRouter();
 const email = ref('');
@@ -100,7 +101,7 @@ const register = async () => {
 
   try {
     loading.value = true;
-    const res = await axios.post('/register', {
+    const res = await api.post('/register', {
       email: email.value,
       password: password.value
     });

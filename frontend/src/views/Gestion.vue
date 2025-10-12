@@ -194,8 +194,10 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import api from '@/api';
 
-const API_URL = 'http://localhost:5000'; // URL backend
+//const API_URL = 'http://localhost:5000'; // URL backend
+const API_URL = `http://${window.location.hostname}:5000`;
 
 const pets = ref([]);
 const snackbar = ref({ show: false, message: '', color: 'info' });
@@ -222,7 +224,7 @@ const placeholderImage = '/placeholder-pet.jpg';
 
 const fetchPets = async () => {
   try {
-    const res = await axios.get(`${API_URL}/pets`);
+    const res = await api.get(`/pets`);
     pets.value = res.data;
   } catch (err) {
     console.error(err);
@@ -274,12 +276,12 @@ const submitCrud = async () => {
   try {
     let res;
     if (isEditing.value) {
-      res = await axios.put(`${API_URL}/pets/${selectedPet.value._id}`, formDataToSend, {
+      res = await api.put(`/pets/${selectedPet.value._id}`, formDataToSend, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       showSnackbar(`¡${formData.value.name} actualizada con éxito!`, 'success');
     } else {
-      res = await axios.post(`${API_URL}/pets`, formDataToSend, {
+      res = await axios.post(`/pets`, formDataToSend, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       showSnackbar(`¡${formData.value.name} agregada con éxito!`, 'success');
@@ -308,7 +310,7 @@ const openDeleteDialog = (pet) => {
 
 const confirmDelete = async () => {
   try {
-    await axios.delete(`${API_URL}/pets/${selectedPet.value._id}`);
+    await api.delete(`/pets/${selectedPet.value._id}`);
     showSnackbar(`${selectedPet.value.name} eliminada con éxito`, 'success');
     closeDeleteDialog();
     fetchPets();

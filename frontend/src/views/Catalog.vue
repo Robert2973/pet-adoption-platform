@@ -67,7 +67,7 @@
           style="background:linear-gradient(135deg, #667eea, #764ba2); transition: all 0.3s ease;  "
         >
           <v-img
-            :src="`http://localhost:5000${pet.photo}`"
+            :src="pet.photo ? `${API_BASE}${pet.photo}` : placeholderImage"
             height="200"
             class="mb-4 rounded-lg"
             @error="handleImgError"
@@ -226,9 +226,11 @@
 
 <script setup>
 import { ref, watch } from 'vue';  // Agregado watch para campos condicionales
-const API_BASE = 'http://localhost:5000';  // ← FIX: Base URL para API (ajusta puerto si diferente)
+//const API_BASE = 'http://localhost:5000';  // ← FIX: Base URL para API (ajusta puerto si diferente)
+const API_BASE = `http://${window.location.hostname}:5000`;
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import api from '@/api';
 
 const router = useRouter();
 const pets = ref([]);
@@ -295,7 +297,7 @@ const fetchPets = async () => {
       if (val) paramsObj[key] = val;
     }
     const params = new URLSearchParams(paramsObj).toString();
-    const res = await axios.get(`/pets?${params}`);
+    const res = await api.get(`/pets?${params}`);
     pets.value = res.data;
   } catch (err) {
     showSnackbar('Error cargando mascotas', 'error');
