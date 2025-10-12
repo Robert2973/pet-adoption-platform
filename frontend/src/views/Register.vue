@@ -127,11 +127,13 @@ const showSnackbar = (message, color) => {
 
 /* Fondo y centrar card */
 .register-container {
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+   background: linear-gradient(135deg, #fff4f7 0%, #ffeef3 100%);
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow: hidden;
 }
 
 /* Card mejorada */
