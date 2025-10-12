@@ -51,7 +51,7 @@
               <!-- Logros (Basados en Total Points – Automáticos) -->
               <v-col cols="12" sm="6">
                 <v-card color="info" dark class="pa-4 transition-smooth">
-                  <v-card-title class="text-h6">Insignias</v-card-title>
+                  <v-card-title class="text-h6">Logros</v-card-title>
                   <v-card-text>
                     <div class="d-flex flex-wrap justify-center">
                       <v-tooltip
@@ -72,7 +72,7 @@
                       </v-tooltip>
                     </div>
                     <p v-if="currentAchievements.length === 0" class="text-caption mt-2">
-                      Aún no tienes insignias, participa más en la comunidad ✨
+                      Aún no tienes logros, participa más en la comunidad ✨
                     </p>
                   </v-card-text>
                 </v-card>
