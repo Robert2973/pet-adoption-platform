@@ -28,7 +28,7 @@
           style="background: linear-gradient(135deg, #667eea, #764ba2); transition: all 0.3s ease;"
         >
           <v-img
-            :src="pet.photo ? `${API_URL}${pet.photo}` : placeholderImage"
+            :src="pet.photo?.startsWith('http') ? pet.photo : `${API_URL}${pet.photo}`"
             height="200"
             class="mb-4 rounded-lg"
             @error="handleImgError"
@@ -259,42 +259,49 @@ const openEditDialog = (pet) => {
   if (crudForm.value) crudForm.value.resetValidation();
 };
 
-const submitCrud = async () => {
-  if (!validForm.value || !crudForm.value.validate()) {
-    showSnackbar('Por favor completa los campos requeridos', 'warning');
-    return;
-  }
-
-  const formDataToSend = new FormData();
-  formDataToSend.append('name', formData.value.name);
-  formDataToSend.append('species', formData.value.species);
-  formDataToSend.append('age', formData.value.age);
-  formDataToSend.append('location', formData.value.location);
-  formDataToSend.append('description', formData.value.description);
-  if (formData.value.photoFile) formDataToSend.append('photo', formData.value.photoFile);
-
-  try {
-    let res;
-    if (isEditing.value) {
-      res = await api.put(`/pets/${selectedPet.value._id}`, formDataToSend, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      showSnackbar(`¡${formData.value.name} actualizada con éxito!`, 'success');
-    } else {
-      res = await axios.post(`/pets`, formDataToSend, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      showSnackbar(`¡${formData.value.name} agregada con éxito!`, 'success');
+  const submitCrud = async () => {
+    if (!validForm.value || !crudForm.value.validate()) {
+      showSnackbar('Por favor completa los campos requeridos', 'warning');
+      return;
     }
 
-    closeCrudDialog();
-    fetchPets();
-  } catch (err) {
-    console.error(err);
-    const errorMsg = err.response?.data?.error || err.message || 'Error en la operación';
-    showSnackbar(errorMsg, 'error');
-  }
-};
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.value.name);
+    formDataToSend.append('species', formData.value.species);
+    formDataToSend.append('age', formData.value.age);
+    formDataToSend.append('location', formData.value.location);
+    formDataToSend.append('description', formData.value.description);
+    if (formData.value.photoFile) formDataToSend.append('photo', formData.value.photoFile);
+
+    try {
+      let res;
+      if (isEditing.value) {
+        res = await api.put(`/pets/${selectedPet.value._id}`, formDataToSend, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        showSnackbar(`¡${formData.value.name} actualizada con éxito!`, 'success');
+      } else {
+        res = await axios.post(`/pets`, formDataToSend, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        // ← FIX: Prepend API_URL al photo relativo (para mostrar inmediata en multi-device)
+        const newPet = res.data;
+        if (newPet.photo && !newPet.photo.startsWith('http')) {
+          newPet.photo = `${API_URL}${newPet.photo}`;  // Absoluto correcto (API_URL = IP laptop desde celular)
+        }
+        pets.value.push(newPet);  // Push a lista – imagen visible inmediata
+        showSnackbar(`¡${formData.value.name} agregada con éxito!`, 'success');
+      }
+
+      closeCrudDialog();
+      fetchPets();  // Reload final (sync)
+    } catch (err) {
+      console.error(err);
+      const errorMsg = err.response?.data?.error || err.message || 'Error en la operación';
+      showSnackbar(errorMsg, 'error');
+    }
+  };
+
 
 const closeCrudDialog = () => {
   crudDialog.value = false;

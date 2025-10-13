@@ -197,17 +197,17 @@ app.post('/pets', upload.single('photo'), async (req, res) => {
     }
     const pet = new Pet({
       ...req.body,
-      //photo: req.file ? `/uploads/${req.file.filename}` : null,
-      photo: req.file ? `http://${req.hostname}:5000/uploads/${req.file.filename}` : null,
+      photo: req.file ? `/uploads/${req.file.filename}` : null,  // ← FIX: Relativo (como PUT – frontend prepende API_URL correcto)
       tags
     });
     await pet.save();
-    res.json(pet);
+    res.json(pet);  // Response con photo relativo
   } catch (err) {
     console.error('Error en /pets POST:', err);
     res.status(500).json({ error: 'Error creando pet' });
   }
 });
+
 
 // Actualizar mascota
 app.put('/pets/:id', upload.single('photo'), async (req, res) => {
