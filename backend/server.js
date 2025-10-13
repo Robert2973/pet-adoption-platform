@@ -144,9 +144,11 @@ app.post('/register', [
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
     res.json({ token, user: { id: user._id, email, points: 0, achievements: [], isAdmin: false } });
   } catch (err) {
-    console.error('Error en /register:', err);
-    res.status(500).json({ error: 'Error en registro' });
+    console.error('Error en /register detallado:', err);  // ← FIX: Log completo (ver console backend)
+    console.error('Stack trace:', err.stack);  // Stack para línea exacta
+    res.status(500).json({ error: 'Error en registro: ' + err.message });  // Mensaje específico al frontend
   }
+
 });
 
 // Login de usuario
