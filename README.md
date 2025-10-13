@@ -4,6 +4,14 @@
 
 Una plataforma web completa para la adopción de mascotas, construida con Vue.js en el frontend y Node.js/Express en el backend. Permite a los usuarios registrarse, agregar/editar/eliminar mascotas, solicitar adopciones, compartir publicaciones para ganar puntos, y analizar imágenes de mascotas con IA.
 
+## Autor
+Benemerita Universidad Autonoma de Puebla
+Facultad de Ciencias de la Computacion
+Desarrollado por Roberto Carlos Hernández Aparicio   
+Matricula: 202127902 
+Fecha: Octubre 2025  
+Objetivo: Plataforma para promover adopción de mascotas.
+
 ## Descripción
 
 Esta app es un sistema de adopción de mascotas con funcionalidades clave:
@@ -73,12 +81,37 @@ Instala dependencias:
 - `python app.py` (puerto 5001).
 - Backend proxy /api/analyze-image → Flask.
 
-### 5. Correr la App
-- Backend: `node server.js` (puerto 5000).
-- Backend(IA): `python app.py` (puerto 5001).
-- Frontend: `npm run dev -- --host` (puerto 5173).
-- Accede: http://localhost:5173 (local).
-- Registro/Login → /catalog (ver mascotas) → /gestion (agregar/editar).
+### 6. Correr la App
+Abre terminales separadas (PowerShell o CMD) en la raíz del proyecto. Ejecuta comandos paso a paso:
+
+1. **Inicia Backend (API Node)**:
+ - Navega a carpeta backend: `cd backend`
+ - Instala dependencias si no: `npm install`
+ - Inicia server: `node server.js` o `npm run dev` (si tienes package.json con script).
+ - Console: "MongoDB conectado exitosamente" y "Servidor en puerto 5000" – OK.
+ - Prueba: Abre browser http://localhost:5000/pets → JSON vacío [].
+
+2. **Inicia Backend IA**:
+ - Navega a carpeta ml-server: `cd ml-server` o donde esté app.py.
+ - Instala dependencias: `pip install flask opencv-python`.
+ - Activa venv: `venv\Scripts\activate`
+ - Inicia: `python app.py`
+ - Console: "Flask corriendo en puerto 5001" – OK.
+ - Prueba: Postman POST http://localhost:5001/analyze (multipart image) → response especie.
+
+3. **Inicia Frontend (Vue)**:
+ - Navega a carpeta frontend: `cd frontend`
+ - Instala dependencias si no: `npm install`
+ - Inicia dev server: `npm run dev -- --host`
+ - Console: "Local: http://localhost:5173/" y "Network: http://tu-ip:5173/" – OK.
+ - Prueba: Abre browser http://localhost:5173 → app carga (login/register).
+
+4. **Accede a la App**:
+ - Local (misma PC): http://localhost:5173
+ - Multi-Device (celular en red): http://tu-ip-local:5173 (ipconfig para IP).
+ - Flujo: Registro/Login → /catalog (ver mascotas) → /gestion (agregar/editar con foto) → /profile (puntos).
+
+Si error (ej: "Port occupied"), mata procesos (Task Manager > node.exe) o cambia puertos en server.js/vite.config.js.
 
 ## Uso
 
