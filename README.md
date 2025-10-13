@@ -1,6 +1,6 @@
 # PetAdoption Platform
 
-![Vue.js](https://img.shields.io/badge/Vue.js-3.0-green?style=flat&logo=vue.js) ![Node.js](https://img.shields.io/badge/Node.js-18.x-blue?style=flat&logo=node.js) ![MongoDB](https://img.shields.io/badge/MongoDB-6.0-yellow?style=flat&logo=mongodb) ![Ngrok](https://img.shields.io/badge/Ngrok-Free-orange?style=flat&logo=ngrok)
+![Vue.js](https://img.shields.io/badge/Vue.js-3.0-green?style=flat&logo=vue.js) ![Node.js](https://img.shields.io/badge/Node.js-18.x-blue?style=flat&logo=node.js) ![MongoDB](https://img.shields.io/badge/MongoDB-6.0-yellow?style=flat&logo=mongodb)
 
 Una plataforma web completa para la adopción de mascotas, construida con Vue.js en el frontend y Node.js/Express en el backend. Permite a los usuarios registrarse, agregar/editar/eliminar mascotas, solicitar adopciones, compartir publicaciones para ganar puntos, y analizar imágenes de mascotas con IA (Clarifai o Flask proxy). Soporta multi-dispositivo (red local o ngrok para compartir online).
 
