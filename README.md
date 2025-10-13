@@ -5,12 +5,12 @@
 Una plataforma web completa para la adopción de mascotas, construida con Vue.js en el frontend y Node.js/Express en el backend. Permite a los usuarios registrarse, agregar/editar/eliminar mascotas, solicitar adopciones, compartir publicaciones para ganar puntos, y analizar imágenes de mascotas con IA.
 
 ## Autor
-Benemerita Universidad Autonoma de Puebla
-Facultad de Ciencias de la Computacion
-Desarrollado por Roberto Carlos Hernández Aparicio   
-Matricula: 202127902 
-Fecha: Octubre 2025  
-Objetivo: Plataforma para promover adopción de mascotas.
+- **Benemerita Universidad Autonoma de Puebla
+- **Facultad de Ciencias de la Computacion
+- **Desarrollado por Roberto Carlos Hernández Aparicio   
+- **Matricula: 202127902 
+- **Fecha: Octubre 2025  
+- **Objetivo: Plataforma para promover adopción de mascotas.
 
 ## Descripción
 
